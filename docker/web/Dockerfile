@@ -31,15 +31,12 @@ RUN apt-get update -yqq --allow-releaseinfo-change \
 #ADD docker/web/php.ini /usr/local/etc/php
 COPY --chown=www-data:www-data . $APACHE_DOCUMENT_ROOT
 
-RUN echo "BEGIN MYSQLI INSTALL" \
-# docker-php-ext-install mysqli && docker-php-ext-enable \ mysqli && apt-get update && apt-get upgrade -y \
-    && echo "MYSQLI INSTALLED" \
-
 #RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 RUN apt-get update && apt-get upgrade -y
 
 RUN echo "BEGIN COMPOSER INSTALL" \
  && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+ && composer install \
     && echo "COMPOSER INSTALLED"
 
 WORKDIR /var/www/html
