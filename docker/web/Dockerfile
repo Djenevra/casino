@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd
 
 ARG TZ=Asia/Bishkek
-ARG ARG_APACHE_DOCUMENT_ROOT=/var/www/html/
+ARG DOCUMENT_ROOT=/var/www/html/
 ADD docker/web/php.ini /usr/local/etc/php
 
 #COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
@@ -35,14 +35,14 @@ RUN apt-get update -yqq --allow-releaseinfo-change \
 
 #COPY docker/web/bin/ /usr/local/bin/
 #ADD docker/web/php.ini /usr/local/etc/php
-COPY --chown=www-data:www-data . $APACHE_DOCUMENT_ROOT
+COPY --chown=www-data:www-data . $DOCUMENT_ROOT
 
-#RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql
 RUN apt-get update && apt-get upgrade -y
 
-RUN echo "BEGIN COMPOSER INSTALL" \
- && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
- && composer install \
-    && echo "COMPOSER INSTALLED"
+#RUN echo "BEGIN COMPOSER INSTALL" \
+# && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+# && composer install \
+#    && echo "COMPOSER INSTALLED"
 
-#WORKDIR /var/www/html
+WORKDIR /var/www/html

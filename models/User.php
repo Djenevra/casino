@@ -2,18 +2,18 @@
 
 namespace app\models;
 
-
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-
+/**
+ * This is the model class for table "task".
+ *
+ * @property int             $id
+ * @property string          $username           Дата и время создания задачи
+ * @property string          $password           Дата и время до исполнения задачи
+ */
 class User extends ActiveRecord implements IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $tableName = 'user';
-
     private static $users = [
         '100' => [
             'id' => '100',
@@ -30,6 +30,32 @@ class User extends ActiveRecord implements IdentityInterface
             'accessToken' => '101-token',
         ],
     ];
+
+    public function rules()
+    {
+        return [
+            [['username'], 'filter', 'filter' => 'trim'],
+            [
+                [
+                    'username',
+                    'password',
+                ],
+                'required',
+            ],
+            [
+                [
+                    'username',
+                    'password',
+                ],
+                'string',
+                'min' => 3,
+                'max' => 255,
+            ],
+            ['id', 'integer'],
+            ['username', 'unique'],
+        ];
+    }
+
     /**
      * @return string table name
      */
