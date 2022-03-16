@@ -2,13 +2,17 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
+
+
+class User extends ActiveRecord implements IdentityInterface
 {
     public $id;
     public $username;
     public $password;
-    public $authKey;
-    public $accessToken;
+    public $tableName = 'user';
 
     private static $users = [
         '100' => [
@@ -26,14 +30,23 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
             'accessToken' => '101-token',
         ],
     ];
-
+    /**
+     * @return string table name
+     */
+    public static function tableName()
+    {
+        return 'user';
+    }
 
     /**
-     * {@inheritdoc}
+     * Finds a user identity by the given ID.
+     *
+     * @param string|int $id the ID to be looked for
+     * @return IdentityInterface|null the identity object that matches the given ID.
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return static::findOne($id);
     }
 
     /**
@@ -54,21 +67,15 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      * Finds user by username
      *
      * @param string $username
-     * @return static|null
+     * @return IdentityInterface|null the identity object that matches the given ID
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+       return $identity = User::findOne(['username' => $username]);
     }
 
     /**
-     * {@inheritdoc}
+     * @return int|string current user ID
      */
     public function getId()
     {
@@ -99,6 +106,9 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
+
+//        var_dump('password', $this->password, 'pass from form', $password, 'bool', $this->password === $password);
+//        var_dump('username', $this->username); die;
         return $this->password === $password;
     }
 }

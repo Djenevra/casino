@@ -28,9 +28,9 @@ class LoginForm extends Model
         return [
             // username and password are both required
             [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
+//            // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
+//            // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
     }
@@ -43,7 +43,7 @@ class LoginForm extends Model
      * @param array $params the additional name-value pairs given in the rule
      */
     public function validatePassword($attribute, $params)
-    {
+    {var_dump( 'validate pass login form', $this->validate()); die;
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
@@ -58,7 +58,7 @@ class LoginForm extends Model
      * @return bool whether the user is logged in successfully
      */
     public function login()
-    {
+    {var_dump( 'login form', $this->validate()); die;
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
@@ -75,7 +75,7 @@ class LoginForm extends Model
         if ($this->_user === false) {
             $this->_user = User::findByUsername($this->username);
         }
-
+        var_dump( 'load', $this->_user); die;
         return $this->_user;
     }
 }

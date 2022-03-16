@@ -1,8 +1,14 @@
-FROM php:7.4-apache
-
+FROM php:7.4-fpm
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
 
 ARG TZ=Asia/Bishkek
 ARG ARG_APACHE_DOCUMENT_ROOT=/var/www/html/
+ADD docker/web/php.ini /usr/local/etc/php
 
 #COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
@@ -39,4 +45,4 @@ RUN echo "BEGIN COMPOSER INSTALL" \
  && composer install \
     && echo "COMPOSER INSTALLED"
 
-WORKDIR /var/www/html
+#WORKDIR /var/www/html
