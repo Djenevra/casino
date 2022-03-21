@@ -132,9 +132,6 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-
-//        var_dump('password', $this->password, 'pass from form', $password, 'bool', $this->password === $password);
-//        var_dump('username', $this->username); die;
         return $this->password === $password;
     }
 }

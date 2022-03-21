@@ -7,7 +7,7 @@ $this->title = 'Casino';
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4"> This is main page of casino app</h1>
+        <h5 class="display-4"> Мой баланс </h5>
 
         <p class="lead"></p>
 
