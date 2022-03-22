@@ -11,25 +11,10 @@ use yii\web\IdentityInterface;
  * @property int             $id
  * @property string          $username           Дата и время создания задачи
  * @property string          $password           Дата и время до исполнения задачи
+ * @property float          $ball           Дата и время до исполнения задачи
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
 
     public function rules()
     {

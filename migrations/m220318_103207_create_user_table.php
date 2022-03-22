@@ -17,6 +17,7 @@ class m220318_103207_create_user_table extends Migration
             'username' => $this->string()->unique(),
             'password' => $this->string(),
             'address' => $this->string(),
+            'ball' => $this->float(),
         ]);
 
         $this->batchInsert('{{%user}}', ['username', 'password', 'address'],
