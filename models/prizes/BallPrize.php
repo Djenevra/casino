@@ -1,27 +1,36 @@
 <?php
 
-namespace app\models;
+namespace app\models\prizes;
 
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "task".
+ * This is the model class for table "ball".
  *
- * @property int             $id
- * @property string          $title           Дата и время создания задачи
+ * @property int    $id    BallPrize ID
+ * @property string $title BallPrize title
+ * @property string $type Type
+ * @property float $amount Amount
  */
-class Ball extends ActiveRecord
+class BallPrize extends ActiveRecord
 {
     public function rules()
     {
         return [
             [
-                ['title'],
+                ['title',
+                 'type'
+                ],
                 'required',
+            ],
+            [
+                ['amount'],
+                'float',
             ],
             [
                 [
                     'title',
+                    'type'
                 ],
                 'string',
                 'min' => 2,
@@ -36,7 +45,7 @@ class Ball extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'ball';
+        return 'ball_prize';
     }
 
     /**
@@ -46,14 +55,14 @@ class Ball extends ActiveRecord
      */
     public static function findById($id)
     {
-        return $ball = Ball::findOne(['id' => $id]);
+        return $ball = BallPrize::findOne(['id' => $id]);
     }
 
     /**
-     * @return int|string current user ID
+     * @return int|string current money ID
      */
     public function getId()
     {
-        return $this->id;
+        return MoneyPrize::find()->one()->id;
     }
 }

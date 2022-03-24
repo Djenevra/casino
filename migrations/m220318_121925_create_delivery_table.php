@@ -25,7 +25,7 @@ class m220318_121925_create_delivery_table extends Migration
      */
     public function safeDown()
     {
-        if ($this->db->schema->getTableSchema('user', true) !== null) {
+        if ($this->db->schema->getTableSchema('delivery', true) !== null) {
         $this->dropTable('{{%delivery}}');
         }
     }

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\services\PlayService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -104,6 +105,10 @@ class SiteController extends Controller
      */
     public function actionPlay()
     {
-        return var_dump('PLAY BUTTON IS FIRED');
+        $playService = new PlayService();
+        $model = $playService->shufflePrizes();
+       return $this->render('win', [
+           'model' => $model,
+       ]);
     }
 }

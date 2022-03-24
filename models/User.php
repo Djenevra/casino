@@ -8,10 +8,10 @@ use yii\web\IdentityInterface;
 /**
  * This is the model class for table "task".
  *
- * @property int             $id
- * @property string          $username           Дата и время создания задачи
- * @property string          $password           Дата и время до исполнения задачи
- * @property float          $ball           Дата и время до исполнения задачи
+ * @property int    $id       User ID
+ * @property string $username Username
+ * @property string $password password
+ * @property float  $ball     ball
  */
 class User extends ActiveRecord implements IdentityInterface
 {

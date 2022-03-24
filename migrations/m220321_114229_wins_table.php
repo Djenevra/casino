@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m220321_114229_wins
+ * Class m220321_114229_wins_table
  */
-class m220321_114229_wins extends Migration
+class m220321_114229_wins_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -25,7 +25,7 @@ class m220321_114229_wins extends Migration
      */
     public function safeDown()
     {
-        if ($this->db->schema->getTableSchema('user', true) !== null) {
+        if ($this->db->schema->getTableSchema('wins', true) !== null) {
             $this->dropTable('{{%wins}}');
         }
     }

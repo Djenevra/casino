@@ -2,10 +2,8 @@
 
 namespace app\controllers\play;
 
-use Yii;
-use yii\filters\AccessControl;
+use app\services\PlayService;
 use yii\web\Controller;
-use yii\web\Response;
 
 
 
@@ -18,7 +16,8 @@ class PlayController extends Controller
      */
     public static function actionPlay()
     {
-
+        $playService = new PlayService();
+        $playService->shufflePrizes();
     }
 }
 
