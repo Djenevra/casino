@@ -1,37 +1,27 @@
 <?php
 
-namespace app\services\prizes;
+namespace app\services;
 
 use app\models\prizes\Prize;
+use app\models\Win;
 use app\services\prizes\LimitedPrizeInterface;
 
-class PrizeService implements LimitedPrizeInterface
+class WinService
 {
 
     /**
-     * Prize model.
-     *
-     * @var Prize
+     * @params array $win
+     * @returns int id of newly created win model
      */
-    private $_prize;
-
-    /**
-     * PrizeService constructor.
-     *
-     *
-     */
-    public function __construct()
+    public function createWin($win, &$model = null): bool
     {
-        $this->_prize = new Prize();
-    }
 
-    /**
-     * @params float $amount
-     * @returns float amount of prize.
-     */
-    private function setAmount($amount)
-    {
-        $this->_prize->amount = $amount;
+        $model = new Win($win);
+        $model->title;
+        if ($result = $model->save()) {
+            $model = $model;
+        }
+        return $result;
     }
 
     /**
@@ -56,9 +46,8 @@ class PrizeService implements LimitedPrizeInterface
         if ($this->_prize->total > 0) {
             $this->setAmount(1);
             return $this->_prize;
-        }
-        else {
-         return self::getPrize();
+        } else {
+            return self::getPrize();
         }
     }
 }

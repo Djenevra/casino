@@ -75,5 +75,14 @@ class Prize extends ActiveRecord
 
         return Prize::findById($randomId);
     }
+
+    /**
+     * @params int $prizeId
+     * @return string|null Prize title
+     */
+    public static function getTitle($prizeId): ?string
+    {
+        return self::findById($prizeId)->title;
+    }
 }
 

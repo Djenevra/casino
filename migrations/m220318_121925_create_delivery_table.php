@@ -16,6 +16,7 @@ class m220318_121925_create_delivery_table extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
             'win_id' => $this->integer()->unique(),
+            'datetime_created' => $this->dateTime(),
             'status' => $this->string(),
         ]);
     }

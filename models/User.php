@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\prizes\BallPrize;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -115,8 +116,21 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password)
+    public function validatePassword(string $password): bool
     {
         return $this->password === $password;
+    }
+
+    /**
+     * Validates password
+     *
+     * @param int $userId float $amount
+     * @return bool if ball of current user is updated
+     */
+    public function updateBall (int $userId, float $amount ): bool
+    {
+        $user = $this->findOne(['id'=>$userId]);
+        $user->ball = $user->ball + $amount;
+       return $user->save();
     }
 }

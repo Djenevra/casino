@@ -84,7 +84,7 @@ class PlayService {
 
     public function shufflePrizes() {
         $prizes = array_merge($this->getLimitedPrizes(), $this->getUnLimitedPrizes());
-        $prize = $prizes[array_rand($this->getLimitedPrizes())];
+        $prize = $prizes[array_rand($prizes)];
 //        var_dump('PRIZES', $prizes, 'PRIZE', $prize); die;
         return $prize;
     }

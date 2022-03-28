@@ -20,6 +20,12 @@ class m220321_113847_create_money_prize_table extends Migration
             'amount' => $this->float()->defaultValue(null),
             'total' => $this->float()->defaultValue(null),
         ]);
+
+        $this->batchInsert('{{%money_prize}}', ['title', 'currency', 'type', 'amount', 'total'],
+            [
+                [ 'SOMS', 'KGS', 'money', null, 10000]
+            ]
+        );
     }
 
     /**

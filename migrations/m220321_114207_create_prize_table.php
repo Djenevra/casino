@@ -19,6 +19,13 @@ class m220321_114207_create_prize_table extends Migration
             'total' => $this->integer()->defaultValue(null),
             'amount' => $this->integer()->defaultValue(null),
         ]);
+
+        $this->batchInsert('{{%prize}}', ['title', 'type', 'amount', 'total'],
+            [
+                [ 'EARRINGS', 'prize', null, 100],
+                [ 'RING', 'prize', null, 100]
+            ]
+        );
     }
 
     /**

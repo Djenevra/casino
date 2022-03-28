@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\services\GiveOutPrizeService;
 use app\services\PlayService;
 use Yii;
 use yii\filters\AccessControl;
@@ -99,7 +100,7 @@ class SiteController extends Controller
 
 
     /**
-     * Displays about page.
+     * Displays win page.
      *
      * @return string
      */
@@ -107,8 +108,26 @@ class SiteController extends Controller
     {
         $playService = new PlayService();
         $model = $playService->shufflePrizes();
-       return $this->render('win', [
-           'model' => $model,
-       ]);
+        return $this->render('win', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionGetPrize()
+    {
+        $request = Yii::$app->request;
+        $prizeId = $request->get('id');
+        $prizeType = $request->get('type');
+        $amount = $request->get('amount');
+        $giveOutPrizeService = new GiveOutPrizeService();
+        $model = $giveOutPrizeService->giveOutPrize($prizeId, $prizeType, $amount);
+        return $this->render('congrats', [
+            'model' => $model
+        ]);
     }
 }

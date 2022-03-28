@@ -12,10 +12,13 @@ class m220321_114229_wins_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%wins}}', [
+        $this->createTable('{{%win}}', [
             'id' => $this->primaryKey(),
             'prize_id' => $this->integer(),
-            'user_id' => $this->integer()->unique(),
+            'user_id' => $this->integer(),
+            'amount' => $this->integer(),
+            'type' => $this->string(),
+            'title' => $this->string(),
             'status' => $this->string(),
         ]);
     }
@@ -25,8 +28,8 @@ class m220321_114229_wins_table extends Migration
      */
     public function safeDown()
     {
-        if ($this->db->schema->getTableSchema('wins', true) !== null) {
-            $this->dropTable('{{%wins}}');
+        if ($this->db->schema->getTableSchema('win', true) !== null) {
+            $this->dropTable('{{%win}}');
         }
     }
 }

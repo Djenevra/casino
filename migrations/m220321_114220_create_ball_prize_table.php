@@ -18,6 +18,12 @@ class m220321_114220_create_ball_prize_table extends Migration
             'type' => $this->text(),
             'amount' => $this->integer()->defaultValue(null),
         ]);
+
+        $this->batchInsert('{{%ball_prize}}', ['title', 'type', 'amount'],
+            [
+                [ 'BALL', 'ball', null ]
+            ]
+        );
     }
 
     /**

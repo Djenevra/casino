@@ -10,12 +10,11 @@ use yii\data\ActiveDataProvider;
 
 /** @var yii\web\View $this */
 /* @var $this yii\web\View */
-/* @var $model    */
+/* @var $model  */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Casino';
 $this->params['breadcrumbs'][] = ['label' => 'Выигрыш', 'url' => ['win']];
-//$model = User::findOne(['id' => Yii::$app->user->id]);
 ?>
 <div class="site-index">
 
@@ -31,23 +30,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Выигрыш', 'url' => ['win']]
                 'amount',
             ],
         ]) ?>
-
-<!--        --><?php //Pjax::begin(); ?>
         <p>
-        <p id="get" style="visibility: hidden"><?= Html::a('Забрать', ['play'], ['class' => 'btn btn-success']) ?></p>
+            <p id="get" style="visibility: hidden"><?= Html::a('Забрать', ['get-prize', 'type'=>$model->type, 'id'=>$model->id, 'title'=>$model->title, 'amount'=> $model->amount], ['class' => 'btn btn-success',]) ?></p>
         <p id="transfer-to-an-account" style="visibility: hidden"><?= Html::a('Перевести на счет', ['play'], ['class' => 'btn btn-success']) ?></p>
         <p id="convert-to-ball" style="visibility: hidden"><?= Html::a('Конвертировать в баллы', ['play'], ['class' => 'btn btn-success']) ?></p>
         <p id="decline" style="visibility: hidden"><?= Html::a('Отказаться', ['play'], ['class' => 'btn btn-success']) ?></p>
         </p>
         <script>
-            if((<?= $model->type == 'money'?>)) {
-                console.log('money');
+            if ('<?= $model->type?>' === 'money') {
                 document.getElementById('transfer-to-an-account').style.visibility = "visible";
                 document.getElementById('convert-to-ball').style.visibility = "visible";
                 document.getElementById('decline').style.visibility = "visible";
-            }
-            if((<?= $model->type == 'ball' || $model->type == 'prize'?>)){
-                console.log('ball');
+            } else {
                 document.getElementById('get').style.visibility = "visible";
                 document.getElementById('decline').style.visibility = "visible";
             }
