@@ -2,9 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\prizes\MoneyPrize;
 use app\services\ConvertMoneyToBallService;
 use app\services\GiveOutPrizeService;
 use app\services\PlayService;
+use app\services\WinService;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -145,9 +147,31 @@ class SiteController extends Controller
         $amount = $request->get('amount');
         $convertMoneyToBallService = new ConvertMoneyToBallService();
         $model = $convertMoneyToBallService->convertMoneyToBall($moneyPrizeId, $prizeType, $amount);
-//        var_dump('SROP', $model); die;
         return $this->render('congrats', [
             'model' => $model
         ]);
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionRefuse()
+    {
+        $request = Yii::$app->request;
+        $prizeId = $request->get('id');
+        $prizeType = $request->get('type');
+        $amount = $request->get('amount');
+        $win = new WinService();
+        $winProps = [
+            'user_id' => Yii::$app->user->id,
+            'status' => 'refused',
+            'prize_id' => $prizeId,
+            'amount' => $amount,
+            'type' => $prizeType,
+        ];
+        $win->createWin($winProps, $model);
+        return $this->render('refuse');
     }
 }
