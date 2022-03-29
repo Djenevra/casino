@@ -17,8 +17,8 @@ class m220321_113847_create_money_prize_table extends Migration
             'title' => $this->text(),
             'currency' => $this->text(),
             'type' => $this->text(),
-            'amount' => $this->float()->defaultValue(null),
-            'total' => $this->float()->defaultValue(null),
+            'amount' => $this->integer()->defaultValue(null),
+            'total' => $this->integer()->defaultValue(null),
         ]);
 
         $this->batchInsert('{{%money_prize}}', ['title', 'currency', 'type', 'amount', 'total'],

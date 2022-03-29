@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\services\ConvertMoneyToBallService;
 use app\services\GiveOutPrizeService;
 use app\services\PlayService;
 use Yii;
@@ -114,7 +115,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays about page.
+     * returns prize.
      *
      * @return string
      */
@@ -126,6 +127,25 @@ class SiteController extends Controller
         $amount = $request->get('amount');
         $giveOutPrizeService = new GiveOutPrizeService();
         $model = $giveOutPrizeService->giveOutPrize($prizeId, $prizeType, $amount);
+        return $this->render('congrats', [
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionConvertMoneyToBall()
+    {
+        $request = Yii::$app->request;
+        $moneyPrizeId = $request->get('id');
+        $prizeType = $request->get('type');
+        $amount = $request->get('amount');
+        $convertMoneyToBallService = new ConvertMoneyToBallService();
+        $model = $convertMoneyToBallService->convertMoneyToBall($moneyPrizeId, $prizeType, $amount);
+//        var_dump('SROP', $model); die;
         return $this->render('congrats', [
             'model' => $model
         ]);

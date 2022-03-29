@@ -49,4 +49,11 @@ class MoneyPrizeService implements LimitedPrizeInterface {
             return self::getPrize();
         }
     }
+
+    public function reduceTotal ($moneyPrizeId, $amount): bool
+    {
+        $money = $this->_moneyPrize->findById($moneyPrizeId);
+        $money->total = $money->total - $amount;
+       return  $money->save();;
+    }
 }

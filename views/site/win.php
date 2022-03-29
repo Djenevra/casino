@@ -1,12 +1,7 @@
 <?php
 
-use app\controllers\play\PlayController;
-use app\models\User;
-use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\widgets\Pjax;
-use yii\data\ActiveDataProvider;
 
 /** @var yii\web\View $this */
 /* @var $this yii\web\View */
@@ -31,9 +26,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Выигрыш', 'url' => ['win']]
             ],
         ]) ?>
         <p>
-            <p id="get" style="visibility: hidden"><?= Html::a('Забрать', ['get-prize', 'type'=>$model->type, 'id'=>$model->id, 'title'=>$model->title, 'amount'=> $model->amount], ['class' => 'btn btn-success',]) ?></p>
+            <p id="get" style="visibility: hidden"><?= Html::a('Забрать', ['get-prize', 'type'=>$model->type, 'id'=>$model->id, 'amount'=> $model->amount], ['class' => 'btn btn-success',]) ?></p>
         <p id="transfer-to-an-account" style="visibility: hidden"><?= Html::a('Перевести на счет', ['play'], ['class' => 'btn btn-success']) ?></p>
-        <p id="convert-to-ball" style="visibility: hidden"><?= Html::a('Конвертировать в баллы', ['play'], ['class' => 'btn btn-success']) ?></p>
+        <p id="convert-to-ball" style="visibility: hidden"><?= Html::a('Конвертировать в баллы', ['convert-money-to-ball', 'type'=>$model->type, 'id'=>$model->id, 'amount'=> $model->amount], ['class' => 'btn btn-success']) ?></p>
         <p id="decline" style="visibility: hidden"><?= Html::a('Отказаться', ['play'], ['class' => 'btn btn-success']) ?></p>
         </p>
         <script>

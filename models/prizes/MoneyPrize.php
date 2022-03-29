@@ -11,15 +11,15 @@ use yii\db\ActiveRecord;
  * @property string $title Title
  * @property string $type Type
  * @property string $currency Currency
- * @property float $total Total
- * @property float $amount Amount
+ * @property integer $total Total
+ * @property integer $amount Amount
  */
 class MoneyPrize extends ActiveRecord
 {
     public function rules()
     {
         return [
-            ['id', 'integer'],
+            [['id', 'total', 'amount'], 'integer'],
             [
                 ['title',
                  'currency',
@@ -36,8 +36,7 @@ class MoneyPrize extends ActiveRecord
                 'string',
                 'min' => 2,
                 'max' => 255,
-            ],
-            [['total', 'amount'], 'float'],
+            ]
         ];
     }
 
@@ -66,6 +65,15 @@ class MoneyPrize extends ActiveRecord
     {
 
         return MoneyPrize::find()->one()->id;
+    }
+
+    /**
+     * @params int $moneyPrizeId
+     * @return string|null Money Prize title
+     */
+    public static function getTitle($moneyPrizeId): ?string
+    {
+        return self::findById($moneyPrizeId)->title;
     }
 }
 
